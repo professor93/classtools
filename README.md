@@ -4,6 +4,12 @@
 [![Build Status](https://img.shields.io/travis/uzbek/classtools/master.svg?style=flat-square)](https://travis-ci.org/uzbek/classtools)
 [![Quality Score](https://img.shields.io/scrutinizer/g/uzbek/classtools.svg?style=flat-square)](https://scrutinizer-ci.com/g/uzbek/classtools)
 
+---
+
+## Forked from https://github.com/hanneskod/classtools
+
+---
+
 Find, extract and process classes from the file system.
 
 Installation

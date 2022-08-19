@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Loader;
+namespace Uzbek\ClassTools\Loader;
 
-use hanneskod\classtools\Tests\MockSplFileInfo;
+use Uzbek\ClassTools\Tests\MockSplFileInfo;
 
 class ClassLoaderTest extends \PHPUnit\Framework\TestCase
 {
     public function testClassLoader()
     {
-        $iterator = $this->getMockBuilder('hanneskod\classtools\Iterator\ClassIterator')
+        $iterator = $this->getMockBuilder('Uzbek\ClassTools\Iterator\ClassIterator')
             ->disableOriginalConstructor()
             ->getMock();
 

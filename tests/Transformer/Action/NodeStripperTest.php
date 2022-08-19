@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer\Action;
+namespace Uzbek\ClassTools\Transformer\Action;
 
-use hanneskod\classtools\Transformer\Reader;
-use hanneskod\classtools\Transformer\Writer;
+use Uzbek\ClassTools\Transformer\Reader;
+use Uzbek\ClassTools\Transformer\Writer;
 
 class NodeStripperTest extends \PHPUnit\Framework\TestCase
 {

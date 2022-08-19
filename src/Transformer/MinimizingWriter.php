@@ -9,12 +9,12 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer;
+namespace Uzbek\ClassTools\Transformer;
 
 use PhpParser\NodeTraverser;
-use hanneskod\classtools\Transformer\Action\CommentStripper;
-use hanneskod\classtools\Transformer\Action\NodeStripper;
-use hanneskod\classtools\Transformer\Action\NameResolver;
+use Uzbek\ClassTools\Transformer\Action\CommentStripper;
+use Uzbek\ClassTools\Transformer\Action\NodeStripper;
+use Uzbek\ClassTools\Transformer\Action\NameResolver;
 
 /**
  * Minimize parsed code snippets

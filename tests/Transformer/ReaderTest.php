@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer;
+namespace Uzbek\ClassTools\Transformer;
 
 class ReaderTest extends \PHPUnit\Framework\TestCase
 {
@@ -90,7 +90,7 @@ EOF
     public function testReadUndefinedClass()
     {
         $reader = new Reader('');
-        $this->expectException('\hanneskod\classtools\Exception\RuntimeException');
+        $this->expectException('\Uzbek\ClassTools\Exception\RuntimeException');
         $reader->read('UndefinedClass');
     }
 
@@ -112,7 +112,7 @@ EOF
 
     public function testSyntaxError()
     {
-        $this->expectException('\hanneskod\classtools\Exception\ReaderException');
+        $this->expectException('\Uzbek\ClassTools\Exception\ReaderException');
         new Reader('<?php functi hej(){}');
     }
 }

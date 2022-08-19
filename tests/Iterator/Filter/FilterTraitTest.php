@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Iterator\Filter;
+namespace Uzbek\ClassTools\Iterator\Filter;
 
 class FilterTraitTest extends \PHPUnit\Framework\TestCase
 {
     public function testFilterNotBoundException()
     {
         $filter = new TypeFilter('');
-        $this->expectException('hanneskod\classtools\Exception\LogicException');
+        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
         $filter->getBoundIterator();
     }
 }

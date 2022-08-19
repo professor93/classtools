@@ -9,11 +9,11 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Iterator;
+namespace Uzbek\ClassTools\Iterator;
 
 use Symfony\Component\Finder\SplFileInfo as FinderSplFileInfo;
-use hanneskod\classtools\Transformer\Reader;
-use hanneskod\classtools\Exception\ReaderException;
+use Uzbek\ClassTools\Transformer\Reader;
+use Uzbek\ClassTools\Exception\ReaderException;
 
 /**
  * Decorates \Symfony\Component\Finder\SplFileInfo to support the creation of Readers

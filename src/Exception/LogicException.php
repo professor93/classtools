@@ -7,13 +7,13 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace hanneskod\classtools\Exception;
+namespace Uzbek\ClassTools\Exception;
 
 /**
  * Exception that represents an error in the program logic
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class LogicException extends \LogicException implements \hanneskod\classtools\Exception
+class LogicException extends \LogicException implements \Uzbek\ClassTools\Exception
 {
 }

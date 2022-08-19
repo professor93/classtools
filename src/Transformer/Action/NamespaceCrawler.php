@@ -9,10 +9,10 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer\Action;
+namespace Uzbek\ClassTools\Transformer\Action;
 
-use hanneskod\classtools\Name;
-use hanneskod\classtools\Exception\RuntimeException;
+use Uzbek\ClassTools\Name;
+use Uzbek\ClassTools\Exception\RuntimeException;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;

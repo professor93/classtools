@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Tests;
+namespace Uzbek\ClassTools\Tests;
 
 class MockFinder extends \Symfony\Component\Finder\Finder
 {

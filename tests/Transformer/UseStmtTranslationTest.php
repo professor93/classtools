@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer;
+namespace Uzbek\ClassTools\Transformer;
 
 class UseStmtTranslationTest extends \PHPUnit\Framework\TestCase
 {

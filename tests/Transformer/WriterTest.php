@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer;
+namespace Uzbek\ClassTools\Transformer;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
 {
@@ -30,7 +30,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer($traverser->reveal());
 
-        $this->expectException('hanneskod\classtools\Exception\RuntimeException');
+        $this->expectException('Uzbek\ClassTools\Exception\RuntimeException');
         $writer->write([]);
     }
 }

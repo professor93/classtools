@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace hanneskod\classtools\Exception;
+namespace Uzbek\ClassTools\Exception;
 
 /**
  * Exception thrown when reading a code snippet fails

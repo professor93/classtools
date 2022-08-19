@@ -9,9 +9,9 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Loader;
+namespace Uzbek\ClassTools\Loader;
 
-use hanneskod\classtools\Iterator\ClassIterator;
+use Uzbek\ClassTools\Iterator\ClassIterator;
 
 /**
  * Autoload classes from a ClassIterator classmap
@@ -21,7 +21,7 @@ use hanneskod\classtools\Iterator\ClassIterator;
 class ClassLoader
 {
     /**
-     * @var \hanneskod\classtools\Iterator\SplFileInfo[] Maps names to SplFileInfo objects
+     * @var \Uzbek\ClassTools\Iterator\SplFileInfo[] Maps names to SplFileInfo objects
      */
     private $classMap = [];
 

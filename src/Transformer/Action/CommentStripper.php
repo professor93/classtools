@@ -9,7 +9,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer\Action;
+namespace Uzbek\ClassTools\Transformer\Action;
 
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node;

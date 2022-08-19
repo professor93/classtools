@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools;
+namespace Uzbek\ClassTools;
 
 class IntegrationTest extends \PHPUnit\Framework\TestCase
 {

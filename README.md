@@ -1,19 +1,19 @@
-# hanneskod/classtools
+# uzbek/classtools
 
-[![Packagist Version](https://img.shields.io/packagist/v/hanneskod/classtools.svg?style=flat-square)](https://packagist.org/packages/hanneskod/classtools)
-[![Build Status](https://img.shields.io/travis/hanneskod/classtools/master.svg?style=flat-square)](https://travis-ci.org/hanneskod/classtools)
-[![Quality Score](https://img.shields.io/scrutinizer/g/hanneskod/classtools.svg?style=flat-square)](https://scrutinizer-ci.com/g/hanneskod/classtools)
+[![Packagist Version](https://img.shields.io/packagist/v/uzbek/classtools.svg?style=flat-square)](https://packagist.org/packages/uzbek/classtools)
+[![Build Status](https://img.shields.io/travis/uzbek/classtools/master.svg?style=flat-square)](https://travis-ci.org/uzbek/classtools)
+[![Quality Score](https://img.shields.io/scrutinizer/g/uzbek/classtools.svg?style=flat-square)](https://scrutinizer-ci.com/g/uzbek/classtools)
 
 Find, extract and process classes from the file system.
 
 Installation
 ------------
 Install using **[composer](http://getcomposer.org/)**. Exists as
-**[hanneskod/classtools](https://packagist.org/packages/hanneskod/classtools)**
+**[uzbek/classtools](https://packagist.org/packages/uzbek/classtools)**
 in the **[packagist](https://packagist.org/)** repository. From the command line
 use:
 
-    composer require hanneskod/classtools
+    composer require uzbek/classtools
 
 Using the iterator
 ------------------
@@ -29,11 +29,11 @@ objects.
 
 <!--
     @example getClassMap()
-    @expectOutput "/hanneskod/"
+    @expectOutput "/uzbek/"
 -->
 ```php
 $finder = new Symfony\Component\Finder\Finder;
-$iter = new hanneskod\classtools\Iterator\ClassIterator($finder->in('src'));
+$iter = new Uzbek\ClassTools\Iterator\ClassIterator($finder->in('src'));
 
 // Print the file names of classes, interfaces and traits in 'src'
 foreach ($iter->getClassMap() as $classname => $splFileInfo) {
@@ -53,7 +53,7 @@ encountered errors.
 -->
 ```php
 $finder = new Symfony\Component\Finder\Finder;
-$iter = new hanneskod\classtools\Iterator\ClassIterator($finder->in('src'));
+$iter = new Uzbek\ClassTools\Iterator\ClassIterator($finder->in('src'));
 
 print_r($iter->getErrors());
 ```
@@ -72,11 +72,11 @@ a ClassIterator.
 
 <!--
     @example enableAutoloading()
-    @expectOutput "/hanneskod/"
+    @expectOutput "/uzbek/"
 -->
 ```php
 $finder = new Symfony\Component\Finder\Finder();
-$iter = new hanneskod\classtools\Iterator\ClassIterator($finder->in('src'));
+$iter = new Uzbek\ClassTools\Iterator\ClassIterator($finder->in('src'));
 
 // Enable reflection by autoloading found classes
 $iter->enableAutoloading();
@@ -94,25 +94,25 @@ chainable.
 
 <!--
     @example filter
-    @expectOutput "/hanneskod/"
+    @expectOutput "/uzbek/"
 -->
 ```php
 $finder = new Symfony\Component\Finder\Finder();
-$iter = new hanneskod\classtools\Iterator\ClassIterator($finder->in('src'));
+$iter = new Uzbek\ClassTools\Iterator\ClassIterator($finder->in('src'));
 $iter->enableAutoloading();
 
 // Print all Filter types (including the interface itself)
-foreach ($iter->type('hanneskod\classtools\Iterator\Filter') as $class) {
+foreach ($iter->type('uzbek\ClassTools\Iterator\Filter') as $class) {
     echo $class->getName();
 }
 
 // Print definitions in the Iterator namespace whose name contains 'Class'
-foreach ($iter->inNamespace('hanneskod\classtools\Iterator\Filter')->name('/type/i') as $class) {
+foreach ($iter->inNamespace('uzbek\ClassTools\Iterator\Filter')->name('/type/i') as $class) {
     echo $class->getName();
 }
 
 // Print implementations of the Filter interface
-foreach ($iter->type('hanneskod\classtools\Iterator\Filter')->where('isInstantiable') as $class) {
+foreach ($iter->type('uzbek\ClassTools\Iterator\Filter')->where('isInstantiable') as $class) {
     echo $class->getName();
 }
 ```
@@ -123,11 +123,11 @@ Filters can also be negated by wrapping them in `not()` method calls.
 
 <!--
     @example negation
-    @expectOutput "/hanneskod/"
+    @expectOutput "/uzbek/"
 -->
 ```php
 $finder = new Symfony\Component\Finder\Finder();
-$iter = new hanneskod\classtools\Iterator\ClassIterator($finder->in('src'));
+$iter = new Uzbek\ClassTools\Iterator\ClassIterator($finder->in('src'));
 $iter->enableAutoloading();
 
 // Print all classes, interfaces and traits NOT instantiable
@@ -147,14 +147,14 @@ single file.
 -->
 ```php
 $finder = new Symfony\Component\Finder\Finder();
-$iter = new hanneskod\classtools\Iterator\ClassIterator($finder->in('src'));
+$iter = new Uzbek\ClassTools\Iterator\ClassIterator($finder->in('src'));
 $iter->enableAutoloading();
 
 // Print all found definitions in one snippet
 echo $iter->minimize();
 
 // The same can be done using
-echo $iter->transform(new hanneskod\classtools\Transformer\MinimizingWriter);
+echo $iter->transform(new Uzbek\ClassTools\Transformer\MinimizingWriter);
 ```
 
 Using the transformer

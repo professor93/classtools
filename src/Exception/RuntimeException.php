@@ -7,13 +7,13 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace hanneskod\classtools\Exception;
+namespace Uzbek\ClassTools\Exception;
 
 /**
  * Exception thrown if an error which can only be found on runtime occurs
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class RuntimeException extends \RuntimeException implements \hanneskod\classtools\Exception
+class RuntimeException extends \RuntimeException implements \Uzbek\ClassTools\Exception
 {
 }

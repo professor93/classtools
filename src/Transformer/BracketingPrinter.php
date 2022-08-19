@@ -9,7 +9,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer;
+namespace Uzbek\ClassTools\Transformer;
 
 use PhpParser\PrettyPrinter\Standard;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Tests;
+namespace Uzbek\ClassTools\Tests;
 
-class MockSplFileInfo extends \hanneskod\classtools\Iterator\SplFileInfo
+class MockSplFileInfo extends \Uzbek\ClassTools\Iterator\SplFileInfo
 {
     public function __construct($contents)
     {

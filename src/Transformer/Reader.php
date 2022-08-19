@@ -9,11 +9,11 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer;
+namespace Uzbek\ClassTools\Transformer;
 
-use hanneskod\classtools\Exception\RuntimeException;
-use hanneskod\classtools\Exception\ReaderException;
-use hanneskod\classtools\Name;
+use Uzbek\ClassTools\Exception\RuntimeException;
+use Uzbek\ClassTools\Exception\ReaderException;
+use Uzbek\ClassTools\Name;
 use PhpParser\Lexer\Emulative;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;

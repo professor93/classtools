@@ -9,9 +9,9 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Instantiator;
+namespace Uzbek\ClassTools\Instantiator;
 
-use hanneskod\classtools\Exception\LogicException;
+use Uzbek\ClassTools\Exception\LogicException;
 
 /**
  * Instantiate reflected class

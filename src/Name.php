@@ -9,7 +9,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools;
+namespace Uzbek\ClassTools;
 
 use PhpParser\Node\Name as PhpParserName;
 

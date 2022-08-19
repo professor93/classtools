@@ -9,11 +9,11 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Iterator\Filter;
+namespace Uzbek\ClassTools\Iterator\Filter;
 
-use hanneskod\classtools\Iterator\ClassIteratorInterface;
-use hanneskod\classtools\Exception\LogicException;
-use hanneskod\classtools\Iterator\SplFileInfo;
+use Uzbek\ClassTools\Iterator\ClassIteratorInterface;
+use Uzbek\ClassTools\Exception\LogicException;
+use Uzbek\ClassTools\Iterator\SplFileInfo;
 
 /**
  * Implementation of Filter

@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Iterator;
+namespace Uzbek\ClassTools\Iterator;
 
-use hanneskod\classtools\Tests\MockSplFileInfo;
-use hanneskod\classtools\Tests\MockFinder;
+use Uzbek\ClassTools\Tests\MockSplFileInfo;
+use Uzbek\ClassTools\Tests\MockFinder;
 
 class ClassIteratorTest extends \PHPUnit\Framework\TestCase
 {
@@ -52,7 +52,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
 
     public function testExceptionWhenIteratingOverUnloadedClasses()
     {
-        $stub = $this->getMockBuilder('hanneskod\classtools\Iterator\ClassIterator')
+        $stub = $this->getMockBuilder('Uzbek\ClassTools\Iterator\ClassIterator')
             ->disableOriginalConstructor()
             ->setMethods(['getClassMap'])
             ->getMock();
@@ -61,7 +61,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
             ->method('getClassMap')
             ->will($this->returnValue(['ClassThatDoesNotExist' => null]));
 
-        $this->expectException('hanneskod\classtools\Exception\LogicException');
+        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
         iterator_to_array($stub);
     }
 

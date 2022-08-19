@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools;
+namespace Uzbek\ClassTools;
 
 class NameTest extends \PHPUnit\Framework\TestCase
 {
@@ -26,7 +26,7 @@ class NameTest extends \PHPUnit\Framework\TestCase
 
     public function testIsDefined()
     {
-        $this->assertTrue((new Name('\hanneskod\classtools\NameTest'))->isDefined());
+        $this->assertTrue((new Name('\Uzbek\ClassTools\NameTest'))->isDefined());
         $this->assertFalse((new Name('class\that\does\not\exist'))->isDefined());
     }
 

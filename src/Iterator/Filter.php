@@ -7,9 +7,9 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace hanneskod\classtools\Iterator;
+namespace Uzbek\ClassTools\Iterator;
 
-use hanneskod\classtools\Exception\LogicException;
+use Uzbek\ClassTools\Exception\LogicException;
 
 /**
  * Definition of a ClassIterator filter

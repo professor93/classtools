@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Instantiator;
+namespace Uzbek\ClassTools\Instantiator;
 
 class InstantiatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testExceptionWhenReflectionClassNotSet()
     {
         $in = new Instantiator;
-        $this->expectException('hanneskod\classtools\Exception\LogicException');
+        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
         $in->getReflectionClass();
     }
 
@@ -41,7 +41,7 @@ class InstantiatorTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($in->isInstantiable());
         $this->assertFalse($in->isInstantiableWithoutArgs());
 
-        $this->expectException('hanneskod\classtools\Exception\LogicException');
+        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
         $in->instantiate();
     }
 
@@ -59,14 +59,14 @@ class InstantiatorTest extends \PHPUnit\Framework\TestCase
         $in->setReflectionClass($class);
 
         $this->assertFalse($in->isInstantiable());
-        $this->expectException('hanneskod\classtools\Exception\LogicException');
+        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
         $in->instantiate();
     }
 
     public function testInstantiate()
     {
         $in = new Instantiator;
-        $in->setReflectionClass(new \ReflectionClass('hanneskod\classtools\Instantiator\Instantiator'));
-        $this->assertInstanceOf('hanneskod\classtools\Instantiator\Instantiator', $in->instantiate());
+        $in->setReflectionClass(new \ReflectionClass('Uzbek\ClassTools\Instantiator\Instantiator'));
+        $this->assertInstanceOf('Uzbek\ClassTools\Instantiator\Instantiator', $in->instantiate());
     }
 }

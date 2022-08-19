@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace hanneskod\classtools;
+namespace Uzbek\ClassTools;
 
 /**
  * Base exception interface

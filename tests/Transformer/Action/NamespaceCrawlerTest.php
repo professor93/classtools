@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer\Action;
+namespace Uzbek\ClassTools\Transformer\Action;
 
-use hanneskod\classtools\Transformer\Reader;
-use hanneskod\classtools\Transformer\Writer;
+use Uzbek\ClassTools\Transformer\Reader;
+use Uzbek\ClassTools\Transformer\Writer;
 
 class NamespaceCrawlerTest extends \PHPUnit\Framework\TestCase
 {
@@ -20,7 +20,7 @@ namespace {
         public function foobar()
         {
             new NamespaceCrawlerTest();
-            new \hanneskod\classtools\Transformer\Action\NamespaceCrawlerTest();
+            new \Uzbek\ClassTools\Transformer\Action\NamespaceCrawlerTest();
         }
     }
 }
@@ -34,8 +34,8 @@ namespace {
     {
         public function foobar()
         {
-            new \hanneskod\classtools\Transformer\Action\NamespaceCrawlerTest();
-            new \hanneskod\classtools\Transformer\Action\NamespaceCrawlerTest();
+            new \Uzbek\ClassTools\Transformer\Action\NamespaceCrawlerTest();
+            new \Uzbek\ClassTools\Transformer\Action\NamespaceCrawlerTest();
         }
     }
 }
@@ -43,7 +43,7 @@ EOF;
 
         $writer = new Writer;
         $writer->apply(new NameResolver);
-        $writer->apply(new NamespaceCrawler(['\hanneskod\classtools\Transformer\Action']));
+        $writer->apply(new NamespaceCrawler(['\Uzbek\ClassTools\Transformer\Action']));
         $this->assertSame(
             $expected,
             $writer->write($reader->read('ClassName'))
@@ -70,7 +70,7 @@ EOF
         $writer->apply(new NamespaceCrawler(['']));
 
         // NonExistingClass does not resolve
-        $this->expectException('hanneskod\classtools\Exception\RuntimeException');
+        $this->expectException('Uzbek\ClassTools\Exception\RuntimeException');
         $writer->write($reader->read('ClassName'));
     }
 

@@ -1,24 +1,28 @@
 {
-    "name": "hanneskod/classtools",
+    "name": "uzbek/classtools",
     "description": "Find, extract and process classes from file system",
     "keywords": ["class finder", "metaprogramming", "code generator", "minimizer"],
-    "homepage": "https://github.com/hanneskod/classtools",
+    "homepage": "https://github.com/professor93/classtools",
     "type": "library",
     "license": "WTFPL",
     "authors": [
         {
             "name": "Hannes Forsgård",
             "email": "hannes.forsgard@fripost.org"
+        },
+        {
+            "name": "Uzbek",
+            "email": "mronx@ya.ru"
         }
     ],
     "autoload": {
         "psr-4": {
-            "hanneskod\\classtools\\": "src/"
+            "Uzbek\\ClassTools\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "hanneskod\\classtools\\": "tests/"
+            "Uzbek\\ClassTools\\": "tests/"
         }
     },
     "require": {

@@ -9,9 +9,9 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Iterator;
+namespace Uzbek\ClassTools\Iterator;
 
-use hanneskod\classtools\Transformer\Writer;
+use Uzbek\ClassTools\Transformer\Writer;
 
 /**
  * Iterate over classes found in filesystem

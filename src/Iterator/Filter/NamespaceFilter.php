@@ -9,11 +9,11 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Iterator\Filter;
+namespace Uzbek\ClassTools\Iterator\Filter;
 
-use hanneskod\classtools\Iterator\ClassIterator;
-use hanneskod\classtools\Iterator\Filter;
-use hanneskod\classtools\Name;
+use Uzbek\ClassTools\Iterator\ClassIterator;
+use Uzbek\ClassTools\Iterator\Filter;
+use Uzbek\ClassTools\Name;
 
 /**
  * Filter classes based on namespace

@@ -9,12 +9,12 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Transformer;
+namespace Uzbek\ClassTools\Transformer;
 
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\Error as PhpParserException;
-use hanneskod\classtools\Exception\RuntimeException;
+use Uzbek\ClassTools\Exception\RuntimeException;
 
 /**
  * Translate and print parsed code snippets

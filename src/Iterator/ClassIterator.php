@@ -9,21 +9,21 @@
 
 declare(strict_types = 1);
 
-namespace hanneskod\classtools\Iterator;
+namespace Uzbek\ClassTools\Iterator;
 
 use Symfony\Component\Finder\Finder;
-use hanneskod\classtools\Transformer\Writer;
-use hanneskod\classtools\Transformer\MinimizingWriter;
-use hanneskod\classtools\Iterator\Filter\CacheFilter;
-use hanneskod\classtools\Iterator\Filter\NameFilter;
-use hanneskod\classtools\Iterator\Filter\NamespaceFilter;
-use hanneskod\classtools\Iterator\Filter\NotFilter;
-use hanneskod\classtools\Iterator\Filter\TypeFilter;
-use hanneskod\classtools\Iterator\Filter\WhereFilter;
-use hanneskod\classtools\Iterator\Filter\AttributeFilter;
-use hanneskod\classtools\Exception\LogicException;
-use hanneskod\classtools\Loader\ClassLoader;
-use hanneskod\classtools\Exception\ReaderException;
+use Uzbek\ClassTools\Transformer\Writer;
+use Uzbek\ClassTools\Transformer\MinimizingWriter;
+use Uzbek\ClassTools\Iterator\Filter\CacheFilter;
+use Uzbek\ClassTools\Iterator\Filter\NameFilter;
+use Uzbek\ClassTools\Iterator\Filter\NamespaceFilter;
+use Uzbek\ClassTools\Iterator\Filter\NotFilter;
+use Uzbek\ClassTools\Iterator\Filter\TypeFilter;
+use Uzbek\ClassTools\Iterator\Filter\WhereFilter;
+use Uzbek\ClassTools\Iterator\Filter\AttributeFilter;
+use Uzbek\ClassTools\Exception\LogicException;
+use Uzbek\ClassTools\Loader\ClassLoader;
+use Uzbek\ClassTools\Exception\ReaderException;
 
 /**
  * Iterate over classes found in filesystem

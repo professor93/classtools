@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
@@ -16,6 +16,6 @@ namespace Uzbek\ClassTools\Transformer\Action;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class NameResolver extends \PhpParser\NodeVisitor\NameResolver
+final class NameResolver extends \PhpParser\NodeVisitor\NameResolver
 {
 }

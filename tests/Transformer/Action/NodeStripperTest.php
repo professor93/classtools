@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
 use Uzbek\ClassTools\Transformer\Reader;
 use Uzbek\ClassTools\Transformer\Writer;
 
-class NodeStripperTest extends \PHPUnit\Framework\TestCase
+final class NodeStripperTest extends \PHPUnit\Framework\TestCase
 {
-    public function testStripNodes()
+    public function testStripNodes(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace {
     class ClassName
@@ -40,7 +40,7 @@ namespace {
 }
 EOF;
 
-        $writer = new Writer;
+        $writer = new Writer();
         $writer->apply(new NodeStripper('Stmt_Expression'));
         $this->assertSame(
             $expected,

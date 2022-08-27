@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator;
 
@@ -47,7 +47,7 @@ interface ClassIteratorInterface extends \IteratorAggregate
     /**
      * Iterator yields classnames as keys and ReflectionClass objects as values
      */
-    public function getIterator(): iterable;
+    public function getIterator(): \Traversable;
 
     /**
      * Filter this iterator
@@ -84,10 +84,10 @@ interface ClassIteratorInterface extends \IteratorAggregate
      */
     public function cache(): Filter;
 
-	/**
-	 * Attribute iterator
-	 */
-	public function attribute(string $attribute_class_name): Filter;
+    /**
+     * Attribute iterator
+     */
+    public function attribute(string $attribute_class_name): Filter;
 
     /**
      * Transform found classes

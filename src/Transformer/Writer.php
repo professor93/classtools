@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer;
 
@@ -26,12 +26,12 @@ class Writer
     /**
      * @var NodeTraverser Traverser used for altering parsed code
      */
-    private $traverser;
+    private readonly \PhpParser\NodeTraverser $nodeTraverser;
 
     /**
      * @var BracketingPrinter Printer used for printing traversed code
      */
-    private $printer;
+    private readonly \Uzbek\ClassTools\Transformer\BracketingPrinter $bracketingPrinter;
 
     /**
      * Optionally inject dependencies
@@ -40,18 +40,18 @@ class Writer
      * wraps the code in brackeded namespace statements must be used. The current
      * implementation of this is BracketingPrinter.
      */
-    public function __construct(NodeTraverser $traverser = null, BracketingPrinter $printer = null)
+    public function __construct(NodeTraverser $nodeTraverser = null, BracketingPrinter $bracketingPrinter = null)
     {
-        $this->traverser = $traverser ?: new NodeTraverser;
-        $this->printer = $printer ?: new BracketingPrinter;
+        $this->nodeTraverser = $nodeTraverser ?: new NodeTraverser();
+        $this->bracketingPrinter = $bracketingPrinter ?: new BracketingPrinter();
     }
 
     /**
      * Apply translation to alter code
      */
-    public function apply(NodeVisitor $translation): self
+    public function apply(NodeVisitor $nodeVisitor): self
     {
-        $this->traverser->addVisitor($translation);
+        $this->nodeTraverser->addVisitor($nodeVisitor);
         return $this;
     }
 
@@ -63,13 +63,13 @@ class Writer
     public function write(array $statements): string
     {
         try {
-            return $this->printer->prettyPrint(
-                $this->traverser->traverse(
+            return $this->bracketingPrinter->prettyPrint(
+                $this->nodeTraverser->traverse(
                     $statements
                 )
             );
-        } catch (PhpParserException $e) {
-            throw new RuntimeException("Error generating code: {$e->getMessage()}", 0, $e);
+        } catch (PhpParserException $phpParserException) {
+            throw new RuntimeException(sprintf('Error generating code: %s', $phpParserException->getMessage()), 0, $phpParserException);
         }
     }
 }

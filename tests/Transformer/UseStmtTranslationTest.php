@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer;
 
-class UseStmtTranslationTest extends \PHPUnit\Framework\TestCase
+final class UseStmtTranslationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSaveNamespacedUseStatements()
+    public function testSaveNamespacedUseStatements(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace foo {
     use Exception;
@@ -30,7 +30,7 @@ namespace foo {
 }
 EOF;
 
-        $writer = new Writer;
+        $writer = new Writer();
 
         $this->assertSame(
             $expected,
@@ -38,10 +38,10 @@ EOF;
         );
     }
 
-    public function testSaveGlobalUseStatements()
+    public function testSaveGlobalUseStatements(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 use random\Exception;
 class ClassName
@@ -60,7 +60,7 @@ namespace {
 }
 EOF;
 
-        $writer = new Writer;
+        $writer = new Writer();
 
         $this->assertSame(
             $expected,

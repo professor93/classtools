@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
 use Uzbek\ClassTools\Transformer\Reader;
 use Uzbek\ClassTools\Transformer\Writer;
 
-class CommentStripperTest extends \PHPUnit\Framework\TestCase
+final class CommentStripperTest extends \PHPUnit\Framework\TestCase
 {
-    public function testStripComments()
+    public function testStripComments(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 /**
  * File docblock comment
@@ -59,8 +59,8 @@ namespace {
 }
 EOF;
 
-        $writer = new Writer;
-        $writer->apply(new CommentStripper);
+        $writer = new Writer();
+        $writer->apply(new CommentStripper());
         $this->assertSame(
             $expected,
             $writer->write($reader->read('ClassName'))

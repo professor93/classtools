@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools;
 
@@ -18,12 +18,12 @@ use PhpParser\Node\Name as PhpParserName;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class Name
+final class Name implements \Stringable
 {
     /**
      * @var string[] Name components
      */
-    private $parts;
+    private array $parts = [];
 
     /**
      * Set name at construct
@@ -36,7 +36,7 @@ class Name
     /**
      * Get as string
      */
-    public function __tostring(): string
+    public function tostring(): string
     {
         return implode('\\', $this->parts);
     }
@@ -63,9 +63,9 @@ class Name
     /**
      * Remove leading backslashes
      */
-    public function normalize(): string
+    public function normalize(): ?string
     {
-        return preg_replace('/^\\\*/', '', (string)$this);
+        return preg_replace('#^\\\*#', '', (string)$this);
     }
 
     /**
@@ -97,10 +97,10 @@ class Name
     /**
      * Check if name is in namespace
      */
-    public function inNamespace(Name $namespace): bool
+    public function inNamespace(Name $name): bool
     {
-        return !!preg_match(
-            '/^'.preg_quote($namespace->keyize()).'/',
+        return (bool) preg_match(
+            '/^'.preg_quote($name->keyize(), '/').'/',
             $this->getNamespace()->keyize()
         );
     }

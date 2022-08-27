@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools;
 
-class IntegrationTest extends \PHPUnit\Framework\TestCase
+final class IntegrationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Should not trigger an error, se issue #10
      */
-    public function testNullableTypes()
+    public function testNullableTypes(): void
     {
         $this->assertTrue(
-            !!new Transformer\Reader('<?php function someMethod(string $some_param) : ?string {return null;}')
+            (bool) new Transformer\Reader('<?php function someMethod(string $some_param) : ?string {return null;}')
         );
     }
 }

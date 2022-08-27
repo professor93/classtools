@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
 use Uzbek\ClassTools\Transformer\Reader;
 use Uzbek\ClassTools\Transformer\Writer;
 
-class NamespaceCrawlerTest extends \PHPUnit\Framework\TestCase
+final class NamespaceCrawlerTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCrawlNamespaces()
+    public function testCrawlNamespaces(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace {
     class ClassName
@@ -41,8 +41,8 @@ namespace {
 }
 EOF;
 
-        $writer = new Writer;
-        $writer->apply(new NameResolver);
+        $writer = new Writer();
+        $writer->apply(new NameResolver());
         $writer->apply(new NamespaceCrawler(['\Uzbek\ClassTools\Transformer\Action']));
         $this->assertSame(
             $expected,
@@ -50,10 +50,10 @@ EOF;
         );
     }
 
-    public function testCrawlUnableToResolveNamespaceException()
+    public function testCrawlUnableToResolveNamespaceException(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 class ClassName
 {
@@ -65,19 +65,19 @@ class ClassName
 EOF
         );
 
-        $writer = new Writer;
-        $writer->apply(new NameResolver);
+        $writer = new Writer();
+        $writer->apply(new NameResolver());
         $writer->apply(new NamespaceCrawler(['']));
 
         // NonExistingClass does not resolve
-        $this->expectException('Uzbek\ClassTools\Exception\RuntimeException');
+        $this->expectException(\Uzbek\ClassTools\Exception\RuntimeException::class);
         $writer->write($reader->read('ClassName'));
     }
 
-    public function testWhitelistNamespace()
+    public function testWhitelistNamespace(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 class ClassName
 {
@@ -89,8 +89,8 @@ class ClassName
 EOF
         );
 
-        $writer = new Writer;
-        $writer->apply(new NameResolver);
+        $writer = new Writer();
+        $writer->apply(new NameResolver());
         $writer->apply(new NamespaceCrawler([''], ['whitelist']));
 
         // NonExistingClass does not resolve, but no exception is thrown

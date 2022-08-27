@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -24,23 +24,20 @@ final class NameFilter extends ClassIterator implements Filter
     use FilterTrait;
 
     /**
-     * @var string Regular expression for matching definition names
-     */
-    private $pattern;
-
-    /**
      * Register matching regular expression
      */
-    public function __construct(string $pattern)
-    {
+    public function __construct(/**
+     * @var string Regular expression for matching definition names
+     */
+    private readonly string $pattern
+    ) {
         parent::__construct();
-        $this->pattern = $pattern;
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         foreach ($this->getBoundIterator() as $className => $reflectedClass) {
-            if (preg_match($this->pattern, $className)) {
+            if (preg_match($this->pattern, (string) $className)) {
                 yield $className => $reflectedClass;
             }
         }

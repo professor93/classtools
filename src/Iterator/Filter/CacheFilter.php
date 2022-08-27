@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -23,20 +23,9 @@ final class CacheFilter extends ClassIterator implements Filter
 {
     use FilterTrait;
 
-    /**
-     * @var \ArrayIterator
-     */
-    private $cache;
+    private ?\ArrayIterator $cache = null;
 
-    /**
-     * Override ClassIterator::__construct
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         if (!isset($this->cache)) {
             $this->cache = new \ArrayIterator(iterator_to_array($this->getBoundIterator()));

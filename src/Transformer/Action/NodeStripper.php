@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
@@ -20,26 +20,20 @@ use PhpParser\NodeTraverser;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class NodeStripper extends NodeVisitorAbstract
+final class NodeStripper extends NodeVisitorAbstract
 {
-    /**
-     * @var string Name of node to strip
-     */
-    private $nodeType;
-
     /**
      * Register what nodes to strip using a fully quilified PhpParser class name
      *
      * @param string $nodeType Node type (see Node::getType())
      */
-    public function __construct(string $nodeType)
+    public function __construct(private readonly string $nodeType)
     {
-        $this->nodeType = $nodeType;
     }
 
     public function leaveNode(Node $node)
     {
-        if ($node->getType() == $this->nodeType) {
+        if ($node->getType() === $this->nodeType) {
             return NodeTraverser::REMOVE_NODE;
         }
 

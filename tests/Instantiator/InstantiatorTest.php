@@ -1,21 +1,21 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Instantiator;
 
-class InstantiatorTest extends \PHPUnit\Framework\TestCase
+final class InstantiatorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testExceptionWhenReflectionClassNotSet()
+    public function testExceptionWhenReflectionClassNotSet(): void
     {
-        $in = new Instantiator;
-        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
-        $in->getReflectionClass();
+        $instantiator = new Instantiator();
+        $this->expectException(\Uzbek\ClassTools\Exception\LogicException::class);
+        $instantiator->getReflectionClass();
     }
 
-    public function testIsInstantiable()
+    public function testIsInstantiable(): void
     {
-        $class = $this->getMockBuilder('\ReflectionClass')
+        $class = $this->getMockBuilder(\ReflectionClass::class)
             ->setConstructorArgs(['\Exception'])
             ->getMock();
 
@@ -23,7 +23,7 @@ class InstantiatorTest extends \PHPUnit\Framework\TestCase
             ->method('isInstantiable')
             ->will($this->returnValue(true));
 
-        $constructor = $this->getMockBuilder('\ReflectionMethod')
+        $constructor = $this->getMockBuilder(\ReflectionMethod::class)
             ->setConstructorArgs(['\Exception', '__construct'])
             ->getMock();
 
@@ -35,19 +35,19 @@ class InstantiatorTest extends \PHPUnit\Framework\TestCase
             ->method('getConstructor')
             ->will($this->returnValue($constructor));
 
-        $in = new Instantiator;
-        $in->setReflectionClass($class);
+        $instantiator = new Instantiator();
+        $instantiator->setReflectionClass($class);
 
-        $this->assertTrue($in->isInstantiable());
-        $this->assertFalse($in->isInstantiableWithoutArgs());
+        $this->assertTrue($instantiator->isInstantiable());
+        $this->assertFalse($instantiator->isInstantiableWithoutArgs());
 
-        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
-        $in->instantiate();
+        $this->expectException(\Uzbek\ClassTools\Exception\LogicException::class);
+        $instantiator->instantiate();
     }
 
-    public function testExceptionWhenInstantiatingNotInstatiable()
+    public function testExceptionWhenInstantiatingNotInstatiable(): void
     {
-        $class = $this->getMockBuilder('\ReflectionClass')
+        $class = $this->getMockBuilder(\ReflectionClass::class)
             ->setConstructorArgs(['\Exception'])
             ->getMock();
 
@@ -55,18 +55,18 @@ class InstantiatorTest extends \PHPUnit\Framework\TestCase
             ->method('isInstantiable')
             ->will($this->returnValue(false));
 
-        $in = new Instantiator;
-        $in->setReflectionClass($class);
+        $instantiator = new Instantiator();
+        $instantiator->setReflectionClass($class);
 
-        $this->assertFalse($in->isInstantiable());
-        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
-        $in->instantiate();
+        $this->assertFalse($instantiator->isInstantiable());
+        $this->expectException(\Uzbek\ClassTools\Exception\LogicException::class);
+        $instantiator->instantiate();
     }
 
-    public function testInstantiate()
+    public function testInstantiate(): void
     {
-        $in = new Instantiator;
-        $in->setReflectionClass(new \ReflectionClass('Uzbek\ClassTools\Instantiator\Instantiator'));
-        $this->assertInstanceOf('Uzbek\ClassTools\Instantiator\Instantiator', $in->instantiate());
+        $instantiator = new Instantiator();
+        $instantiator->setReflectionClass(new \ReflectionClass(\Uzbek\ClassTools\Instantiator\Instantiator::class));
+        $this->assertInstanceOf(\Uzbek\ClassTools\Instantiator\Instantiator::class, $instantiator->instantiate());
     }
 }

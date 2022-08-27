@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
@@ -20,38 +20,36 @@ use PhpParser\Node\Name;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class NamespaceWrapper extends NodeVisitorAbstract
+final class NamespaceWrapper extends NodeVisitorAbstract
 {
-    /**
-     * @var string Name of namespace
-     */
-    private $namespaceName;
-
     /**
      * Wrap code in namespace
      */
-    public function __construct(string $namespaceName)
-    {
-        $this->namespaceName = $namespaceName;
+    public function __construct(
+        /**
+         * @var string Name of namespace
+         */
+        private readonly string $namespaceName
+    ) {
     }
 
     /**
      * {inheritdoc}
      *
-     * @param  array $nodes
      * @return Namespace_[]
      */
     public function beforeTraverse(array $nodes): array
     {
         // Merge if code is namespaced
         if (isset($nodes[0]) && $nodes[0] instanceof Namespace_) {
-            if ($this->namespaceName) {
+            if ($this->namespaceName !== '' && $this->namespaceName !== '0') {
                 if ((string)$nodes[0]->name == '') {
                     $nodes[0]->name = new Name($this->namespaceName);
                 } else {
                     $nodes[0]->name = Name::concat($this->namespaceName, $nodes[0]->name);
                 }
             }
+
             return $nodes;
         }
 

@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -34,9 +34,10 @@ trait FilterTrait
 
     public function getBoundIterator(): ClassIteratorInterface
     {
-        if (!isset($this->boundIterator)) {
+        if (!(property_exists($this, 'boundIterator') && $this->boundIterator !== null)) {
             throw new LogicException("Filter not bound to iterator.");
         }
+
         return $this->boundIterator;
     }
 

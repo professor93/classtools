@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Loader;
 
@@ -18,12 +18,12 @@ use Uzbek\ClassTools\Iterator\ClassIterator;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class ClassLoader
+final class ClassLoader
 {
     /**
      * @var \Uzbek\ClassTools\Iterator\SplFileInfo[] Maps names to SplFileInfo objects
      */
-    private $classMap = [];
+    private array $classMap = [];
 
     /**
      * Load classmap at construct
@@ -41,7 +41,7 @@ class ClassLoader
      */
     public function register(): bool
     {
-        return spl_autoload_register([$this, 'load']);
+        return spl_autoload_register($this->load(...));
     }
 
     /**
@@ -49,7 +49,7 @@ class ClassLoader
      */
     public function unregister(): bool
     {
-        return spl_autoload_unregister([$this, 'load']);
+        return spl_autoload_unregister($this->load(...));
     }
 
     /**

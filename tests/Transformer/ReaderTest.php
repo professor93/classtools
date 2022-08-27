@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer;
 
-class ReaderTest extends \PHPUnit\Framework\TestCase
+final class ReaderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFindDefinitions()
+    public function testFindDefinitions(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace foo;
 class ClassName {}
@@ -28,7 +28,7 @@ EOF
         );
     }
 
-    public function testHasDefinition()
+    public function testHasDefinition(): void
     {
         $reader = new Reader("<?php class ClassName {}");
         $this->assertTrue($reader->hasDefinition('ClassName'));
@@ -39,10 +39,10 @@ EOF
         $this->assertTrue($reader->hasDefinition('\\foo\\ClassName'));
     }
 
-    public function testFindBracketedDefinitions()
+    public function testFindBracketedDefinitions(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace foo {
     class ClassName {}
@@ -68,10 +68,10 @@ EOF
         );
     }
 
-    public function testFindGlobalDefinitions()
+    public function testFindGlobalDefinitions(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 class ClassName {}
 interface InterfaceName {}
@@ -87,14 +87,14 @@ EOF
         );
     }
 
-    public function testReadUndefinedClass()
+    public function testReadUndefinedClass(): void
     {
         $reader = new Reader('');
-        $this->expectException('\Uzbek\ClassTools\Exception\RuntimeException');
+        $this->expectException(\Uzbek\ClassTools\Exception\RuntimeException::class);
         $reader->read('UndefinedClass');
     }
 
-    public function testRead()
+    public function testRead(): void
     {
         $reader = new Reader('<?php class FooBar {}');
         $this->assertIsArray(
@@ -102,7 +102,7 @@ EOF
         );
     }
 
-    public function testReadAll()
+    public function testReadAll(): void
     {
         $reader = new Reader('');
         $this->assertIsArray(
@@ -110,9 +110,9 @@ EOF
         );
     }
 
-    public function testSyntaxError()
+    public function testSyntaxError(): void
     {
-        $this->expectException('\Uzbek\ClassTools\Exception\ReaderException');
+        $this->expectException(\Uzbek\ClassTools\Exception\ReaderException::class);
         new Reader('<?php functi hej(){}');
     }
 }

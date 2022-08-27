@@ -1,19 +1,19 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Uzbek\ClassTools\Tests;
+namespace Uzbek\ClassTools;
 
-class MockFinder extends \Symfony\Component\Finder\Finder
+final class MockFinder extends \Symfony\Component\Finder\Finder
 {
-    private static $iterator;
+    private static ?iterable $iterator = null;
 
-    public static function setIterator(\Traversable $iterator)
+    public static function setIterator(\Traversable $traversable): void
     {
-        self::$iterator = $iterator;
+        self::$iterator = $traversable;
     }
 
-    public function getIterator()
+    public function getIterator(): \Iterator
     {
         return self::$iterator;
     }

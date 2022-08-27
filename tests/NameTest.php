@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools;
 
-class NameTest extends \PHPUnit\Framework\TestCase
+final class NameTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCreateNode()
+    public function testCreateNode(): void
     {
         $this->assertEquals(
             new \PhpParser\Node\Name(['']),
@@ -24,13 +24,13 @@ class NameTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testIsDefined()
+    public function testIsDefined(): void
     {
-        $this->assertTrue((new Name('\Uzbek\ClassTools\NameTest'))->isDefined());
+        $this->assertTrue((new Name(\Uzbek\ClassTools\NameTest::class))->isDefined());
         $this->assertFalse((new Name('class\that\does\not\exist'))->isDefined());
     }
 
-    public function testGetBasename()
+    public function testGetBasename(): void
     {
         $this->assertEquals(
             new Name('ClassName'),
@@ -48,7 +48,7 @@ class NameTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testGetNamespace()
+    public function testGetNamespace(): void
     {
         $this->assertEquals(
             new Name('name\SPACE'),
@@ -66,7 +66,7 @@ class NameTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testInNamespace()
+    public function testInNamespace(): void
     {
         $name = new Name('name\SPACE\ClassName');
 
@@ -79,7 +79,7 @@ class NameTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($name->inNamespace(new Name('NAME\space\class')));
     }
 
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $this->assertSame(
             '',

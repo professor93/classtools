@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
@@ -25,17 +25,17 @@ use PhpParser\Node\Name\FullyQualified;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class NamespaceCrawler extends NodeVisitorAbstract
+final class NamespaceCrawler extends NodeVisitorAbstract
 {
     /**
      * @var Name[] List of namespaces to test for each undefined name
      */
-    private $search = [];
+    private array $search = [];
 
     /**
      * @var Name[] List of namespaces that will be allowed even if not defined
      */
-    private $whitelist = [];
+    private array $whitelist = [];
 
     /**
      * Search namespaces for definied classes
@@ -43,14 +43,14 @@ class NamespaceCrawler extends NodeVisitorAbstract
      * @param string[] $search    List of namespaces to test for each undefined name
      * @param string[] $whitelist namespaces that will be allowed even if not defined
      */
-    public function __construct(array $search, array $whitelist = array())
+    public function __construct(array $search, array $whitelist = [])
     {
         foreach ($search as $namespace) {
-            $this->search[] = new Name((string)$namespace);
+            $this->search[] = new Name($namespace);
         }
 
         foreach ($whitelist as $namespace) {
-            $this->whitelist[] = new Name((string)$namespace);
+            $this->whitelist[] = new Name($namespace);
         }
     }
 
@@ -67,13 +67,14 @@ class NamespaceCrawler extends NodeVisitorAbstract
             if (!$name->isDefined(!$whitelisted)) {
                 /** @var Name $namespace */
                 foreach ($this->search as $namespace) {
-                    $newName = new Name("{$namespace}\\{$node->getLast()}");
+                    $newName = new Name(sprintf('%s\%s', $namespace, $node->getLast()));
                     if ($newName->isDefined()) {
                         return $newName->createNode();
                     }
                 }
+
                 if (!$whitelisted) {
-                    throw new RuntimeException("Unable to resolve class <$node>.");
+                    throw new RuntimeException(sprintf('Unable to resolve class <%s>.', $node));
                 }
             }
         }
@@ -81,9 +82,6 @@ class NamespaceCrawler extends NodeVisitorAbstract
 
     /**
      * Check if name is whitelisted
-     *
-     * @param  Name $name
-     * @return bool
      */
     public function isWhitelisted(Name $name): bool
     {
@@ -93,6 +91,7 @@ class NamespaceCrawler extends NodeVisitorAbstract
                 return true;
             }
         }
+
         return false;
     }
 }

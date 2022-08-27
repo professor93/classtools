@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
@@ -19,9 +19,9 @@ use PhpParser\Node;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class CommentStripper extends NodeVisitorAbstract
+final class CommentStripper extends NodeVisitorAbstract
 {
-    public function leaveNode(Node $node)
+    public function leaveNode(Node $node): void
     {
         $node->setAttribute('comments', []);
     }

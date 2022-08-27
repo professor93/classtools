@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer\Action;
 
 use Uzbek\ClassTools\Transformer\Reader;
 use Uzbek\ClassTools\Transformer\Writer;
 
-class NamespaceWrapperTest extends \PHPUnit\Framework\TestCase
+final class NamespaceWrapperTest extends \PHPUnit\Framework\TestCase
 {
-    public function testWrapCodeInNamespace()
+    public function testWrapCodeInNamespace(): void
     {
         $readerOne = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 class ClassName
 {
@@ -21,7 +21,7 @@ EOF
         );
 
         $readerTwo = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace {
     class ClassName
@@ -40,7 +40,7 @@ namespace NamespaceName {
 }
 EOF;
 
-        $writer = new Writer;
+        $writer = new Writer();
         $writer->apply(new NamespaceWrapper('NamespaceName'));
         $this->assertSame(
             $expected,
@@ -52,10 +52,10 @@ EOF;
         );
     }
 
-    public function testExtendNamespace()
+    public function testExtendNamespace(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace NamespaceName {
     class ClassName
@@ -74,7 +74,7 @@ namespace extended\NamespaceName {
 }
 EOF;
 
-        $writer = new Writer;
+        $writer = new Writer();
         $writer->apply(new NamespaceWrapper('extended'));
         $this->assertSame(
             $expected,
@@ -82,10 +82,10 @@ EOF;
         );
     }
 
-    public function testIgnoreExtendedEmptyNamespace()
+    public function testIgnoreExtendedEmptyNamespace(): void
     {
         $reader = new Reader(
-<<<EOF
+            <<<EOF
 <?php
 namespace foobar {
     class ClassName
@@ -104,7 +104,7 @@ namespace foobar {
 }
 EOF;
 
-        $writer = new Writer;
+        $writer = new Writer();
         // Assert that a empty second wrapper makes no difference
         $writer->apply(new NamespaceWrapper(''));
         $this->assertSame(
@@ -113,12 +113,12 @@ EOF;
         );
     }
 
-    public function testCreateNewNamespaceNode()
+    public function testCreateNewNamespaceNode(): void
     {
-        $wrapper = new NamespaceWrapper('foobar');
+        $namespaceWrapper = new NamespaceWrapper('foobar');
         $this->assertInstanceOf(
-            'PhpParser\Node\Stmt\Namespace_',
-            $wrapper->beforeTraverse([])[0]
+            \PhpParser\Node\Stmt\Namespace_::class,
+            $namespaceWrapper->beforeTraverse([])[0]
         );
     }
 }

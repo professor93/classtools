@@ -1,38 +1,41 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Uzbek\ClassTools\Tests;
+namespace Uzbek\ClassTools;
 
-class MockSplFileInfo extends \Uzbek\ClassTools\Iterator\SplFileInfo
+final class MockSplFileInfo extends \Uzbek\ClassTools\Iterator\SplFileInfo
 {
-    public function __construct($contents)
+    public ?string $contents = null;
+
+    public ?string $path = null;
+
+    public function __construct(public $contents)
     {
-        $this->contents = $contents;
-        $tempnam = tempnam(sys_get_temp_dir(), 'CLASSTOOLS_');
-        unlink($tempnam);
+        $tempnam = \tempnam(\sys_get_temp_dir(), 'CLASSTOOLS_');
+        \unlink($tempnam);
         $this->path = $tempnam . '.php';
-        $handle = fopen($this->path, "w");
-        fwrite($handle, $contents);
-        fclose($handle);
+        $handle = \fopen($this->path, "w");
+        \fwrite($handle, (string) $contents);
+        \fclose($handle);
     }
 
     public function __destruct()
     {
-        unlink($this->path);
+        \unlink($this->path);
     }
 
-    public function getPathname()
+    public function getPathname(): string
     {
         return $this->path;
     }
 
-    public function getRealPath()
+    public function getRealPath(): string|false
     {
         return $this->path;
     }
 
-    public function getContents()
+    public function getContents(): string
     {
         return $this->contents;
     }

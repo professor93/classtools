@@ -14,6 +14,6 @@ namespace Uzbek\ClassTools\Exception;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class LogicException extends \LogicException implements \Uzbek\ClassTools\Exception
+final class LogicException extends \LogicException implements \Uzbek\ClassTools\Exception
 {
 }

@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Instantiator;
 
@@ -18,19 +18,16 @@ use Uzbek\ClassTools\Exception\LogicException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class Instantiator
+final class Instantiator
 {
-    /**
-     * @var \ReflectionClass
-     */
-    private $class;
+    private ?\ReflectionClass $class = null;
 
     /**
      * Set class to instantiate
      */
-    public function setReflectionClass(\ReflectionClass $class): void
+    public function setReflectionClass(\ReflectionClass $reflectionClass): void
     {
-        $this->class = $class;
+        $this->class = $reflectionClass;
     }
 
     /**
@@ -43,6 +40,7 @@ class Instantiator
         if (!isset($this->class)) {
             throw new LogicException("Reflected class not loaded");
         }
+
         return $this->class;
     }
 
@@ -51,9 +49,10 @@ class Instantiator
      */
     public function countConstructorArgs(): int
     {
-        if ($constructor = $this->class->getConstructor()) {
-            return $constructor->getNumberOfRequiredParameters();
+        if (($reflectionMethod = $this->class->getConstructor()) !== null) {
+            return $reflectionMethod->getNumberOfRequiredParameters();
         }
+
         return 0;
     }
 
@@ -70,7 +69,11 @@ class Instantiator
      */
     public function isInstantiableWithoutArgs(): bool
     {
-        return $this->isInstantiable() && !$this->countConstructorArgs();
+        if (!$this->isInstantiable()) {
+            return false;
+        }
+
+        return !$this->countConstructorArgs();
     }
 
     /**
@@ -80,7 +83,7 @@ class Instantiator
      * @return mixed          Instance of reflected class
      * @throws LogicException If reflected class is not instantiable
      */
-    public function instantiate(array $args = array())
+    public function instantiate(array $args = []): object
     {
         if (!$this->isInstantiable()) {
             throw new LogicException("Reflected class is not instantiable");

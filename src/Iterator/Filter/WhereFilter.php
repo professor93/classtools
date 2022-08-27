@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -24,29 +24,17 @@ final class WhereFilter extends ClassIterator implements Filter
     use FilterTrait;
 
     /**
-     * @var string Name of ReflectionClass method to evaluate
-     */
-    private $methodName;
-
-    /**
-     * @var mixed Expected return value
-     */
-    private $returnValue;
-
-    /**
      * Register method name and expected return value
      *
      * @param string $methodName  Name of ReflectionClass method to evaluate
      * @param mixed  $returnValue Expected return value
      */
-    public function __construct($methodName, $returnValue = true)
+    public function __construct(private $methodName, private $returnValue = true)
     {
         parent::__construct();
-        $this->methodName = $methodName;
-        $this->returnValue = $returnValue;
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         $methodName = $this->methodName;
         foreach ($this->getBoundIterator() as $className => $reflectedClass) {

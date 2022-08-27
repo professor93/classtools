@@ -14,6 +14,6 @@ namespace Uzbek\ClassTools\Exception;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class ReaderException extends RuntimeException
+final class ReaderException extends RuntimeException
 {
 }

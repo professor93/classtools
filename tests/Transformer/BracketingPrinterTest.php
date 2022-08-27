@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer;
 
 use PhpParser\ParserFactory;
 
-class BracketingPrinterTest extends \PHPUnit\Framework\TestCase
+final class BracketingPrinterTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPrintWithBrackets()
+    public function testPrintWithBrackets(): void
     {
         $parserFactory = new ParserFactory();
         $parser = $parserFactory->create(ParserFactory::PREFER_PHP5);
-        $printer = new BracketingPrinter;
+        $bracketingPrinter = new BracketingPrinter();
 
         $stmts = $parser->parse(
             <<<EOF
@@ -32,6 +32,6 @@ namespace foo {
 }
 EOF;
 
-        $this->assertSame($expected, $printer->prettyPrint($stmts));
+        $this->assertSame($expected, $bracketingPrinter->prettyPrint($stmts));
     }
 }

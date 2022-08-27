@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator;
 
-class SplFileInfoTest extends \PHPUnit\Framework\TestCase
+final class SplFileInfoTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGetReader()
+    public function testGetReader(): void
     {
         $decorated = $this->getMockBuilder('Uzbek\ClassTools\Tests\MockSplFileInfo')
             ->setConstructorArgs([''])
@@ -18,7 +18,7 @@ class SplFileInfoTest extends \PHPUnit\Framework\TestCase
         $reader = $fileInfo->getReader();
 
         $this->assertInstanceOf(
-            'Uzbek\ClassTools\Transformer\Reader',
+            \Uzbek\ClassTools\Transformer\Reader::class,
             $reader
         );
 
@@ -29,7 +29,7 @@ class SplFileInfoTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testReaderException()
+    public function testReaderException(): void
     {
         $decorated = $this->getMockBuilder('Uzbek\ClassTools\Tests\MockSplFileInfo')
             ->setConstructorArgs([''])
@@ -38,12 +38,12 @@ class SplFileInfoTest extends \PHPUnit\Framework\TestCase
             ->method('getContents')
             ->will($this->returnValue('<?php func hej(){}'));
 
-        $this->expectException('\Uzbek\ClassTools\Exception\ReaderException');
+        $this->expectException(\Uzbek\ClassTools\Exception\ReaderException::class);
         $fileInfo = new SplFileInfo($decorated);
         $fileInfo->getReader();
     }
 
-    public function testDecoratedMethods()
+    public function testDecoratedMethods(): void
     {
         $decorated = $this->getMockBuilder('Uzbek\ClassTools\Tests\MockSplFileInfo')
             ->setConstructorArgs([''])
@@ -113,6 +113,5 @@ class SplFileInfoTest extends \PHPUnit\Framework\TestCase
         $fileInfo->openFile();
         $fileInfo->setFileClass();
         $fileInfo->setInfoClass();
-        (string)$fileInfo;
     }
 }

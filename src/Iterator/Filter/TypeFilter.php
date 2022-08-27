@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -24,25 +24,19 @@ final class TypeFilter extends ClassIterator implements Filter
 {
     use FilterTrait;
 
-    /**
-     * @var string
-     */
-    private $typename;
-
-    public function __construct(string $typename)
+    public function __construct(private readonly string $typename)
     {
         parent::__construct();
-        $this->typename = $typename;
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         foreach ($this->getBoundIterator() as $className => $reflectedClass) {
             try {
                 if ($reflectedClass->implementsInterface($this->typename)) {
                     yield $className => $reflectedClass;
                 }
-            } catch (\ReflectionException $e) {
+            } catch (\ReflectionException) {
                 try {
                     if (
                         $reflectedClass->isSubclassOf($this->typename)
@@ -50,7 +44,7 @@ final class TypeFilter extends ClassIterator implements Filter
                     ) {
                         yield $className => $reflectedClass;
                     }
-                } catch (\ReflectionException $e) {
+                } catch (\ReflectionException) {
                     // Nope
                 }
             }

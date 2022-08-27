@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator;
 
@@ -20,24 +20,15 @@ use Uzbek\ClassTools\Exception\ReaderException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class SplFileInfo extends FinderSplFileInfo
+final class SplFileInfo extends FinderSplFileInfo implements \Stringable
 {
-    /**
-     * @var FinderSplFileInfo
-     */
-    private $decorated;
-
-    /**
-     * @var Reader
-     */
-    private $reader;
+    private ?\Uzbek\ClassTools\Transformer\Reader $reader = null;
 
     /**
      * Load decorated object
      */
-    public function __construct(FinderSplFileInfo $decorated)
+    public function __construct(private readonly FinderSplFileInfo $decorated)
     {
-        $this->decorated = $decorated;
     }
 
     /**
@@ -49,9 +40,9 @@ class SplFileInfo extends FinderSplFileInfo
     {
         if (!isset($this->reader)) {
             try {
-                $this->reader = new Reader((string)$this->getContents());
-            } catch (ReaderException $exception) {
-                throw new ReaderException($exception->getMessage() . ' in ' . $this->getPathname());
+                $this->reader = new Reader($this->getContents());
+            } catch (ReaderException $readerException) {
+                throw new ReaderException($readerException->getMessage() . ' in ' . $this->getPathname());
             }
         }
 
@@ -76,18 +67,16 @@ class SplFileInfo extends FinderSplFileInfo
 
     /**
      * Returns the contents of the file
-     *
-     * @return string
      */
-    public function getContents()
+    public function getContents(): string
     {
-        return (string)$this->decorated->getContents();
+        return $this->decorated->getContents();
     }
 
     /**
      * Gets the last access time for the file
      */
-    public function getATime(): int
+    public function getATime(): int|false
     {
         return $this->decorated->getATime();
     }
@@ -121,7 +110,7 @@ class SplFileInfo extends FinderSplFileInfo
      *
      * @param string $class_name
      */
-    public function getFileInfo($class_name = ''): \SplFileInfo
+    public function getFileInfo($class_name = ''): \Uzbek\ClassTools\Iterator\SplFileInfo
     {
         return $this->decorated->getFileInfo($class_name);
     }
@@ -137,7 +126,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Gets the file group
      */
-    public function getGroup(): int
+    public function getGroup(): int|false
     {
         return $this->decorated->getGroup();
     }
@@ -145,7 +134,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Gets the inode number for the filesystem object
      */
-    public function getInode(): int
+    public function getInode(): int|false
     {
         return $this->decorated->getInode();
     }
@@ -153,7 +142,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Gets the target of a filesystem link
      */
-    public function getLinkTarget(): sring
+    public function getLinkTarget(): string|false
     {
         return $this->decorated->getLinkTarget();
     }
@@ -161,7 +150,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Returns the time when the contents of the file were changed
      */
-    public function getMTime(): int
+    public function getMTime(): int|false
     {
         return $this->decorated->getMTime();
     }
@@ -169,7 +158,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Gets the file owner
      */
-    public function getOwner(): int
+    public function getOwner(): int|false
     {
         return $this->decorated->getOwner();
     }
@@ -187,17 +176,15 @@ class SplFileInfo extends FinderSplFileInfo
      *
      * @param  string $class_name
      */
-    public function getPathInfo($class_name = ''): \SplFileInfo
+    public function getPathInfo($class_name = ''): \Uzbek\ClassTools\Iterator\SplFileInfo
     {
         return $this->decorated->getPathInfo($class_name);
     }
 
     /**
      * Returns the path to the file
-     *
-     * @return string
      */
-    public function getPathname()
+    public function getPathname(): string
     {
         return $this->decorated->getPathname();
     }
@@ -205,7 +192,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Gets the file permissions for the file
      */
-    public function getPerms(): int
+    public function getPerms(): int|false
     {
         return $this->decorated->getPerms();
     }
@@ -215,7 +202,7 @@ class SplFileInfo extends FinderSplFileInfo
      *
      * @return string
      */
-    public function getRealPath()
+    public function getRealPath(): string|false
     {
         return $this->decorated->getRealPath();
     }
@@ -223,7 +210,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Returns the filesize in bytes for the file referenced
      */
-    public function getSize(): int
+    public function getSize(): int|false
     {
         return $this->decorated->getSize();
     }
@@ -231,7 +218,7 @@ class SplFileInfo extends FinderSplFileInfo
     /**
      * Returns the type of the file referenced
      */
-    public function getType(): string
+    public function getType(): string|false
     {
         return $this->decorated->getType();
     }
@@ -290,9 +277,8 @@ class SplFileInfo extends FinderSplFileInfo
      * @param  string   $open_mode
      * @param  boolean  $use_include_path
      * @param  resource $context
-     * @return \SplFileObject
      */
-    public function openFile($open_mode = "r", $use_include_path = false, $context = null)
+    public function openFile($open_mode = "r", $use_include_path = false, $context = null): \SplFileObject
     {
         return $this->decorated->openFile($open_mode, $use_include_path, $context);
     }
@@ -301,9 +287,8 @@ class SplFileInfo extends FinderSplFileInfo
      * Set the class name which will be used to open files when openFile() is called
      *
      * @param  string $class_name
-     * @return void
      */
-    public function setFileClass($class_name = '')
+    public function setFileClass($class_name = ''): void
     {
         $this->decorated->setFileClass($class_name);
     }
@@ -312,19 +297,16 @@ class SplFileInfo extends FinderSplFileInfo
      * Set the class name which will be used when getFileInfo and getPathInfo are called
      *
      * @param  string $class_name
-     * @return void
      */
-    public function setInfoClass($class_name = '')
+    public function setInfoClass($class_name = ''): void
     {
         $this->decorated->setInfoClass($class_name);
     }
 
     /**
      * This method will return the file name of the referenced file
-     *
-     * @return string
      */
-    public function __tostring()
+    public function tostring(): string
     {
         return (string)$this->decorated;
     }

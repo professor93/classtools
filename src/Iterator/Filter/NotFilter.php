@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -23,18 +23,12 @@ final class NotFilter extends ClassIterator implements Filter
 {
     use FilterTrait;
 
-    /**
-     * @var Filter
-     */
-    private $filter;
-
-    public function __construct(Filter $filter)
+    public function __construct(private readonly Filter $filter)
     {
         parent::__construct();
-        $this->filter = $filter;
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         $filtered = iterator_to_array($this->filter->getIterator());
         foreach ($this->getBoundIterator() as $className => $reflectedClass) {

@@ -1,16 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Loader;
 
 use Uzbek\ClassTools\Tests\MockSplFileInfo;
 
-class ClassLoaderTest extends \PHPUnit\Framework\TestCase
+final class ClassLoaderTest extends \PHPUnit\Framework\TestCase
 {
-    public function testClassLoader()
+    public function testClassLoader(): void
     {
-        $iterator = $this->getMockBuilder('Uzbek\ClassTools\Iterator\ClassIterator')
+        $iterator = $this->getMockBuilder(\Uzbek\ClassTools\Iterator\ClassIterator::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -22,11 +22,11 @@ class ClassLoaderTest extends \PHPUnit\Framework\TestCase
                 )
             ]));
 
-        $loader = new ClassLoader($iterator, true);
+        $classLoader = new ClassLoader($iterator, true);
 
-        $unloadedClass = new \UnloadedClass;
+        $unloadedClass = new \UnloadedClass();
         $this->assertSame('bar', $unloadedClass->foo());
 
-        $loader->unregister();
+        $classLoader->unregister();
     }
 }

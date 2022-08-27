@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer;
 
@@ -28,22 +28,22 @@ use PhpParser\ParserFactory;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class Reader
+final class Reader
 {
     /**
      * @var Namespace_[] Collection of definitions in snippet
      */
-    private $defs = [];
+    private array $defs = [];
 
     /**
      * @var string[] Case sensitive definition names
      */
-    private $names = [];
+    private array $names = [];
 
     /**
-     * @var \PhpParser\Node[] The global statement object
+     * @var \PhpParser\Node[]|null The global statement object
      */
-    private $global;
+    private ?array $global = [];
 
     /**
      * Optionally inject parser
@@ -59,8 +59,8 @@ class Reader
 
         try {
             $this->global = $parser->parse($snippet);
-        } catch (\PhpParser\Error $exception) {
-            throw new ReaderException($exception->getRawMessage() . ' on line ' . $exception->getStartLine());
+        } catch (\PhpParser\Error $error) {
+            throw new ReaderException($error->getRawMessage() . ' on line ' . $error->getStartLine());
         }
 
         $this->findDefinitions($this->global, new Name(''));
@@ -69,7 +69,7 @@ class Reader
     /**
      * Find class, interface and trait definitions in statemnts
      */
-    private function findDefinitions(array $stmts, Name $namespace): void
+    private function findDefinitions(?array $stmts, Name $name): void
     {
         $useStmts = [];
 
@@ -78,16 +78,16 @@ class Reader
             if ($stmt instanceof Namespace_) {
                 $this->findDefinitions($stmt->stmts, new Name((string)$stmt->name));
 
-                // Save use statement
+            // Save use statement
             } elseif ($stmt instanceof Use_) {
                 $useStmts[] = $stmt;
 
-                // Save classes, interfaces and traits
-            } elseif ($stmt instanceof Class_ or $stmt instanceof Interface_ or $stmt instanceof Trait_) {
-                $defName = new Name("{$namespace}\\{$stmt->name}");
+            // Save classes, interfaces and traits
+            } elseif ($stmt instanceof Class_ || $stmt instanceof Interface_ || $stmt instanceof Trait_) {
+                $defName = new Name(sprintf('%s\%s', $name, $stmt->name));
                 $this->names[$defName->keyize()] = $defName->normalize();
                 $this->defs[$defName->keyize()] = new Namespace_(
-                    $namespace->normalize() ? $namespace->createNode() : null,
+                    $name->normalize() !== '' && $name->normalize() !== '0' ? $name->createNode() : null,
                     $useStmts
                 );
                 $this->defs[$defName->keyize()]->stmts[] = $stmt;
@@ -122,7 +122,7 @@ class Reader
     public function read(string $name): array
     {
         if (!$this->hasDefinition($name)) {
-            throw new RuntimeException("Unable to read <$name>, not found.");
+            throw new RuntimeException(sprintf('Unable to read <%s>, not found.', $name));
         }
 
         return [$this->defs[(new Name($name))->keyize()]];
@@ -131,9 +131,9 @@ class Reader
     /**
      * Get parse tree for the complete snippet
      *
-     * @return \PhpParser\Node[]
+     * @return \PhpParser\Node[]|null
      */
-    public function readAll(): array
+    public function readAll(): ?array
     {
         return $this->global;
     }

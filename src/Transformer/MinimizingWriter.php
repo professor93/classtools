@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer;
 
@@ -21,13 +21,13 @@ use Uzbek\ClassTools\Transformer\Action\NameResolver;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class MinimizingWriter extends Writer
+final class MinimizingWriter extends Writer
 {
-    public function __construct(NodeTraverser $traverser = null)
+    public function __construct(NodeTraverser $nodeTraverser = null)
     {
-        parent::__construct($traverser);
-        $this->apply(new CommentStripper);
-        $this->apply(new NameResolver);
+        parent::__construct($nodeTraverser);
+        $this->apply(new CommentStripper());
+        $this->apply(new NameResolver());
         $this->apply(new NodeStripper('Stmt_Use'));
     }
 }

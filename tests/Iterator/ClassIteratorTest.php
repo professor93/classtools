@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator;
 
 use Uzbek\ClassTools\Tests\MockSplFileInfo;
 use Uzbek\ClassTools\Tests\MockFinder;
 
-class ClassIteratorTest extends \PHPUnit\Framework\TestCase
+final class ClassIteratorTest extends \PHPUnit\Framework\TestCase
 {
-    private static $sut;
+    private static \Uzbek\ClassTools\Iterator\ClassIterator $sut;
 
-    public static function setupBeforeClass()
+    public static function setupBeforeClass(): void
     {
         MockFinder::setIterator(
             new \ArrayIterator([
@@ -22,21 +22,21 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
             ])
         );
 
-        self::$sut = new ClassIterator(new MockFinder);
+        self::$sut = new ClassIterator(new MockFinder());
         self::$sut->enableAutoloading();
     }
 
-    public function getSystemUnderTest()
+    public function getSystemUnderTest(): \Uzbek\ClassTools\Iterator\ClassIterator
     {
         return self::$sut;
     }
 
-    public function testGetErrors()
+    public function testGetErrors(): void
     {
         $this->assertCount(1, $this->getSystemUnderTest()->getErrors());
     }
 
-    public function testGetClassmap()
+    public function testGetClassmap(): void
     {
         $this->assertArrayHasKey(
             'B',
@@ -44,15 +44,15 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
 
         $this->assertInstanceOf(
-            '\SplFileInfo',
+            \SplFileInfo::class,
             $this->getSystemUnderTest()->getClassMap()['B'],
             'getClassMap should map classnames to SplFileInfo objects'
         );
     }
 
-    public function testExceptionWhenIteratingOverUnloadedClasses()
+    public function testExceptionWhenIteratingOverUnloadedClasses(): void
     {
-        $stub = $this->getMockBuilder('Uzbek\ClassTools\Iterator\ClassIterator')
+        $stub = $this->getMockBuilder(\Uzbek\ClassTools\Iterator\ClassIterator::class)
             ->disableOriginalConstructor()
             ->setMethods(['getClassMap'])
             ->getMock();
@@ -61,11 +61,11 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
             ->method('getClassMap')
             ->will($this->returnValue(['ClassThatDoesNotExist' => null]));
 
-        $this->expectException('Uzbek\ClassTools\Exception\LogicException');
+        $this->expectException(\Uzbek\ClassTools\Exception\LogicException::class);
         iterator_to_array($stub);
     }
 
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertArrayHasKey(
             'B',
@@ -73,13 +73,13 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
 
         $this->assertInstanceOf(
-            '\ReflectionClass',
+            \ReflectionClass::class,
             iterator_to_array($this->getSystemUnderTest())['B'],
             'getIterator should map classnames to ReflectionClass objects'
         );
     }
 
-    public function testFilteredClassMap()
+    public function testFilteredClassMap(): void
     {
         $classIterator = $this->getSystemUnderTest();
 
@@ -96,7 +96,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testTypeFilter()
+    public function testTypeFilter(): void
     {
         $classIterator = $this->getSystemUnderTest();
 
@@ -135,7 +135,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testNameFilter()
+    public function testNameFilter(): void
     {
         $classIterator = $this->getSystemUnderTest();
 
@@ -168,7 +168,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testNamespaceFilter()
+    public function testNamespaceFilter(): void
     {
         $classIterator = $this->getSystemUnderTest();
 
@@ -187,7 +187,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testWhereFilter()
+    public function testWhereFilter(): void
     {
         $classIterator = $this->getSystemUnderTest();
 
@@ -208,7 +208,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testNotFilter()
+    public function testNotFilter(): void
     {
         $classIterator = $this->getSystemUnderTest();
 
@@ -229,7 +229,7 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testCacheFilter()
+    public function testCacheFilter(): void
     {
         $classIterator = $this->getSystemUnderTest();
 
@@ -246,82 +246,79 @@ class ClassIteratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testAttributeFilter()
+    public function testAttributeFilter(): void
     {
-		if ( version_compare(PHP_VERSION, '8.0.1') >= 0) {
-			
-			# define our own system under test, adding attributes etc to standard test will break 
-			# tests for minimize etc
-			MockFinder::setIterator(
-								new \ArrayIterator([
-									new MockSplFileInfo(''),
-									new MockSplFileInfo('<?php #[Attribute] class NotUsed {  }'),
-									new MockSplFileInfo('<?php #[Attribute] class CoolStuff {  }'),
-									new MockSplFileInfo('<?php #[Attribute] class EvenCoolerStuff {  }'),
-									new MockSplFileInfo('<?php #[Attribute] class WayCool extends CoolStuff {  }'),
-									new MockSplFileInfo('<?php #[CoolStuff] class BeCool { }'),
-									new MockSplFileInfo("<?php #[EvenCoolerStuff]\n#[CoolStuff]\nclass TheCoolest { }"),
-									new MockSplFileInfo('<?php #[WayCool] class InheritedCoolness {}'),
-									new MockSplFileInfo('<?php class NotCool {}')
-								])
-							);
+        if (version_compare(PHP_VERSION, '8.0.1') >= 0) {
+            # define our own system under test, adding attributes etc to standard test will break
+            # tests for minimize etc
+            MockFinder::setIterator(
+                new \ArrayIterator([
+                    new MockSplFileInfo(''),
+                    new MockSplFileInfo('<?php #[Attribute] class NotUsed {  }'),
+                    new MockSplFileInfo('<?php #[Attribute] class CoolStuff {  }'),
+                    new MockSplFileInfo('<?php #[Attribute] class EvenCoolerStuff {  }'),
+                    new MockSplFileInfo('<?php #[Attribute] class WayCool extends CoolStuff {  }'),
+                    new MockSplFileInfo('<?php #[CoolStuff] class BeCool { }'),
+                    new MockSplFileInfo("<?php #[EvenCoolerStuff]\n#[CoolStuff]\nclass TheCoolest { }"),
+                    new MockSplFileInfo('<?php #[WayCool] class InheritedCoolness {}'),
+                    new MockSplFileInfo('<?php class NotCool {}')
+                ])
+            );
 
-			$classIterator = new ClassIterator(new MockFinder);
-			$classIterator->enableAutoloading();
+            $classIterator = new ClassIterator(new MockFinder());
+            $classIterator->enableAutoloading();
 
-			// look for class tagged with 'CoolStuff'
-			// we should find both BeCool, TheCoolest  and WayCool because filter uses instance inheritance
-			// by default, thus WayCool extends CoolStuff and is detect by this filter
-			$result = iterator_to_array(
-				$classIterator->attribute('CoolStuff')
-			);
-			$this->assertArrayHasKey(
-				'BeCool',
-				$result
-			);
-			$this->assertArrayHasKey(
-				'TheCoolest',
-				$result
-			);
-			$this->assertArrayHasKey(
-				'InheritedCoolness',
-				$result
-			);
-			$this->assertCount(
-				3,
-				$result
-			);
-			
-			// look for class tagged with 'EvenCoolerStuff'
-			// we should find only TheCoolest
-			$result = iterator_to_array(
-				$classIterator->attribute('EvenCoolerStuff')
-			);
-			$this->assertArrayHasKey(
-				'TheCoolest',
-				$result
-			);
-			$this->assertCount(
-				1,
-				$result
-			);
-			
-			// look for an attribute not tagged onto anything, should return empty
-			$result = iterator_to_array(
-				$classIterator->attribute('NotUsed')
-			);
-			$this->assertEmpty(
-				$result
-			);
-		
-		} else {
-			$this->markTestSkipped('This test requires PHP 8.0.1 or higher');
-		}
+            // look for class tagged with 'CoolStuff'
+            // we should find both BeCool, TheCoolest  and WayCool because filter uses instance inheritance
+            // by default, thus WayCool extends CoolStuff and is detect by this filter
+            $result = iterator_to_array(
+                $classIterator->attribute('CoolStuff')
+            );
+            $this->assertArrayHasKey(
+                'BeCool',
+                $result
+            );
+            $this->assertArrayHasKey(
+                'TheCoolest',
+                $result
+            );
+            $this->assertArrayHasKey(
+                'InheritedCoolness',
+                $result
+            );
+            $this->assertCount(
+                3,
+                $result
+            );
+
+            // look for class tagged with 'EvenCoolerStuff'
+            // we should find only TheCoolest
+            $result = iterator_to_array(
+                $classIterator->attribute('EvenCoolerStuff')
+            );
+            $this->assertArrayHasKey(
+                'TheCoolest',
+                $result
+            );
+            $this->assertCount(
+                1,
+                $result
+            );
+
+            // look for an attribute not tagged onto anything, should return empty
+            $result = iterator_to_array(
+                $classIterator->attribute('NotUsed')
+            );
+            $this->assertEmpty(
+                $result
+            );
+        } else {
+            $this->markTestSkipped('This test requires PHP 8.0.1 or higher');
+        }
     }
 
-    public function testMinimize()
+    public function testMinimize(): void
     {
-
         $expected = <<<EOL
 <?php namespace foobar {
     class A

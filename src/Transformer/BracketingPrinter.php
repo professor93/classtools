@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Transformer;
 
@@ -18,7 +18,7 @@ use PhpParser\PrettyPrinter\Standard;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class BracketingPrinter extends Standard
+final class BracketingPrinter extends Standard
 {
     /**
      * Force canUseSemicolonNamespaces to false

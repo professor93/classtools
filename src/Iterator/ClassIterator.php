@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator;
 
@@ -35,17 +35,14 @@ class ClassIterator implements ClassIteratorInterface
     /**
      * @var SplFileInfo[] Maps names to SplFileInfo objects
      */
-    private $classMap = [];
+    private array $classMap = [];
 
     /**
      * @var string[]
      */
-    private $errors = [];
+    private array $errors = [];
 
-    /**
-     * @var ClassLoader
-     */
-    private $loader;
+    private ?\Uzbek\ClassTools\Loader\ClassLoader $loader = null;
 
     /**
      * Scan filesystem for classes, interfaces and traits
@@ -59,8 +56,8 @@ class ClassIterator implements ClassIteratorInterface
                 foreach ($fileInfo->getReader()->getDefinitionNames() as $name) {
                     $this->classMap[$name] = $fileInfo;
                 }
-            } catch (ReaderException $exception) {
-                $this->errors[] = $exception->getMessage();
+            } catch (ReaderException $readerException) {
+                $this->errors[] = $readerException->getMessage();
             }
         }
     }
@@ -96,15 +93,14 @@ class ClassIterator implements ClassIteratorInterface
         }
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
-        /** @var SplFileInfo $fileInfo */
-        foreach ($this->getClassMap() as $name => $fileInfo) {
+        foreach (array_keys($this->classMap) as $name) {
             try {
                 yield $name => new \ReflectionClass($name);
-            } catch (\ReflectionException $e) {
-                $msg = "Unable to iterate, {$e->getMessage()}, is autoloading enabled?";
-                throw new LogicException($msg, 0, $e);
+            } catch (\ReflectionException $reflectionException) {
+                $msg = sprintf('Unable to iterate, %s, is autoloading enabled?', $reflectionException->getMessage());
+                throw new LogicException($msg, 0, $reflectionException);
             }
         }
     }
@@ -142,7 +138,7 @@ class ClassIterator implements ClassIteratorInterface
 
     public function cache(): Filter
     {
-        return $this->filter(new CacheFilter);
+        return $this->filter(new CacheFilter());
     }
 
     public function attribute(string $attribute_class_name): Filter
@@ -155,15 +151,15 @@ class ClassIterator implements ClassIteratorInterface
         $code = '';
 
         /** @var SplFileInfo $fileInfo */
-        foreach ($this->getClassMap() as $name => $fileInfo) {
+        foreach ($this->classMap as $name => $fileInfo) {
             $code .= $writer->write($fileInfo->getReader()->read($name)) . "\n";
         }
 
-        return "<?php $code";
+        return sprintf('<?php %s', $code);
     }
 
     public function minimize(): string
     {
-        return $this->transform(new MinimizingWriter);
+        return $this->transform(new MinimizingWriter());
     }
 }

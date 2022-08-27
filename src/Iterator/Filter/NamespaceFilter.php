@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -24,10 +24,7 @@ final class NamespaceFilter extends ClassIterator implements Filter
 {
     use FilterTrait;
 
-    /**
-     * @var string
-     */
-    private $namespace;
+    private readonly string $namespace;
 
     /**
      * Register namespace to filter on
@@ -35,10 +32,10 @@ final class NamespaceFilter extends ClassIterator implements Filter
     public function __construct(string $namespace)
     {
         parent::__construct();
-        $this->namespace = new Name((string)$namespace);
+        $this->namespace = new Name($namespace);
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         foreach ($this->getBoundIterator() as $className => $reflectedClass) {
             if ((new Name($className))->inNamespace($this->namespace)) {

@@ -7,7 +7,7 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Uzbek\ClassTools\Iterator\Filter;
 
@@ -23,7 +23,7 @@ use Uzbek\ClassTools\Iterator\Filter;
  *
  * #[Attribute]
  * class CoolStuff { ... }
- * 
+ *
  * #[CoolStuff]
  * class BeCool { ... }
  *
@@ -42,25 +42,19 @@ final class AttributeFilter extends ClassIterator implements Filter
     use FilterTrait;
 
     /**
-     * @var string 
-     */
-    private $attribute_class_name;
-
-    /**
      * Register matching attribute name
      */
-    public function __construct(string $attribute_class_name)
+    public function __construct(private readonly string $attribute_class_name)
     {
         parent::__construct();
-        $this->attribute_class_name = $attribute_class_name;
     }
 
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         foreach ($this->getBoundIterator() as $className => $reflectedClass) {
-			// if the class implements the given attribute (one or more times)
-			// then this is a match, and we yield with the found class
-            if ( !empty($reflectedClass->getAttributes($this->attribute_class_name, \ReflectionAttribute::IS_INSTANCEOF)) ) {
+            // if the class implements the given attribute (one or more times)
+            // then this is a match, and we yield with the found class
+            if (!empty($reflectedClass->getAttributes($this->attribute_class_name, \ReflectionAttribute::IS_INSTANCEOF))) {
                 yield $className => $reflectedClass;
             }
         }

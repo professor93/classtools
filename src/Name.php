@@ -36,7 +36,7 @@ final class Name implements \Stringable
     /**
      * Get as string
      */
-    public function tostring(): string
+    public function __toString(): string
     {
         return implode('\\', $this->parts);
     }
